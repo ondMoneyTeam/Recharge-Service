@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://onemoney.com/card"
+           xmlns:tns="http://onemoney.com/card"
+           elementFormDefault="qualified">
+
+  <!-- ========================= -->
+  <!-- 1. Card Model (Reusable) -->
+  <!-- ========================= -->
+  <xs:complexType name="Card">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long"/>
+      <xs:element name="accountId" type="xs:long"/>
+      <xs:element name="cardNumber" type="xs:string"/>
+      <xs:element name="cardType" type="xs:string" minOccurs="0"/>
+      <xs:element name="balance" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="status" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+
+  <!-- ========================= -->
+  <!-- 2. CREATE -->
+  <!-- ========================= -->
+  <xs:element name="createCardRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="accountId" type="xs:long" minOccurs="0"/>
+        <xs:element name="cardNumber" type="xs:string"/>
+        <xs:element name="cardType" type="xs:string" minOccurs="0"/>
+        <xs:element name="balance" type="xs:decimal" minOccurs="0"/>
+        <xs:element name="status" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="createCardResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="status" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- ========================= -->
+  <!-- 3. READ (Get by ID) -->
+  <!-- ========================= -->
+  <xs:element name="getCardRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getCardResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="card" type="tns:Card" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- ========================= -->
+  <!-- 4. UPDATE -->
+  <!-- ========================= -->
+  <xs:element name="updateCardRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+        <xs:element name="accountId" type="xs:long"/>
+        <xs:element name="cardNumber" type="xs:string"/>
+        <xs:element name="cardType" type="xs:string" minOccurs="0"/>
+        <xs:element name="balance" type="xs:decimal" minOccurs="0"/>
+        <xs:element name="status" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateCardResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="card" type="tns:Card"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- ========================= -->
+  <!-- 5. DELETE -->
+  <!-- ========================= -->
+  <xs:element name="deleteCardRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deleteCardResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="deleted" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- ========================= -->
+  <!-- 6. LIST ALL -->
+  <!-- ========================= -->
+  <xs:element name="listCardsRequest">
+    <xs:complexType/>
+  </xs:element>
+
+  <xs:element name="listCardsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="cards" type="tns:Card" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="Recharge">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long"/>
+      <xs:element name="amount" type="xs:double"/>
+      <xs:element name="status" type="xs:string"/>
+      <xs:element name="createdDate" type="xs:string"/>
+      <xs:element name="cardId" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- ========================= -->
+  <!-- 2. CREATE Recharge -->
+  <!-- ========================= -->
+  <xs:element name="createRechargeRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="amount" type="xs:double"/>
+        <xs:element name="status" type="xs:string"/>
+        <xs:element name="createdDate" type="xs:string"/>
+        <xs:element name="cardId" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="createRechargeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="status" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- ========================= -->
+  <!-- 3. READ (Get by ID) -->
+  <!-- ========================= -->
+  <xs:element name="getRechargeRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getRechargeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="recharge" type="tns:Recharge" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- ========================= -->
+  <!-- 4. UPDATE -->
+  <!-- ========================= -->
+  <xs:element name="updateRechargeRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+        <xs:element name="accoundId" type="xs:long"/>
+        <xs:element name="status"
+
+
+
+
+                    .,type="xs:string"/>
+        <xs:element name="createdDate" type="xs:string"/>
+        <xs:element name="cardId" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateRechargeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="recharge" type="tns:Recharge"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- ========================= -->
+  <!-- 5. DELETE -->
+  <!-- ========================= -->
+  <xs:element name="deleteRechargeRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deleteRechargeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="deleted" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- ========================= -->
+  <!-- 6. LIST ALL -->
+  <!-- ========================= -->
+  <xs:element name="listRechargeRequest">
+    <xs:complexType/>
+  </xs:element>
+
+  <xs:element name="listRechargeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="recharges" type="tns:Recharge" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
