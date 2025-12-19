@@ -178,12 +178,8 @@
       <xs:sequence>
         <xs:element name="id" type="xs:long"/>
         <xs:element name="accoundId" type="xs:long"/>
-        <xs:element name="status"
-
-
-
-
-                    .,type="xs:string"/>
+        <xs:element name="amount" type="xs:double"/>
+        <xs:element name="status" type="xs:string"/>
         <xs:element name="createdDate" type="xs:string"/>
         <xs:element name="cardId" type="xs:long"/>
       </xs:sequence>

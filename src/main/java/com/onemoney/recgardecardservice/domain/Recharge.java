@@ -32,6 +32,9 @@ public class Recharge implements Serializable {
     @Column(name = "status", nullable = false)
     private String status;
 
+    @Column(name = "accound_id", nullable = false)
+    private Long accoundId;
+
     @NotNull
     @Column(name = "created_date", nullable = false)
     private LocalDate createdDate;
@@ -111,6 +114,14 @@ public class Recharge implements Serializable {
     public Recharge card(Card card) {
         this.setCard(card);
         return this;
+    }
+
+    public Long getAccoundId() {
+        return accoundId;
+    }
+
+    public void setAccoundId(Long accoundId) {
+        this.accoundId = accoundId;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
