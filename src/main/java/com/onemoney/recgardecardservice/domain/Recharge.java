@@ -154,4 +154,10 @@ public class Recharge implements Serializable {
             ", createdDate='" + getCreatedDate() + "'" +
             "}";
     }
+
+    public Recharge accoundId(Long accoundId) {
+        this.setAccoundId(accoundId);
+        return this;
+    }
+
 }
