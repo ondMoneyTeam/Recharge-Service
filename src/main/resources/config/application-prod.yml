@@ -20,11 +20,16 @@ logging:
     com.onemoney.recgardecardservice: INFO
 
 eureka:
-  instance:
-    prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://admin:${jhipster.registry.password}@jhipster-registry:8761/eureka/
+      defaultZone: http://admin:admin@jhipster-registry:8761/eureka/
+    registry-fetch-interval-seconds: 5
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: false
+    hostname: recharge-service
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 
 management:
   prometheus:
@@ -50,25 +55,42 @@ spring:
         initial-interval: 1000
         max-interval: 2000
         max-attempts: 100
-      uri: http://admin:${jhipster.registry.password}@localhost:8761/config
+      uri: http://admin:${jhipster.registry.password}@jhipster-registry:8761/config
       # name of the config server's property source (file.yml) that we want to use
       name: oneMoneyRechargeCardService
       profile: prod
       label: main # toggle to switch to a different version of the configuration as stored in git
       # it can be set to any label, branch or commit of the configuration source Git repository
   datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/oneMoneyRechargeCardService
-    username: oneMoneyRechargeCardService
-    password:
+    url: jdbc:postgresql://postgresql:5433/onemoney_msrecharge_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
     hikari:
-      poolName: Hikari
-      auto-commit: false
+      connection-timeout: 30000
+      maximum-pool-size: 10
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Ici on utilise 'keycloak' au lieu de 'localhost'
+          issuer-uri: http://keycloak:9080/realms/jhipster
+          jwk-set-uri: http://keycloak:9080/realms/jhipster/protocol/openid-connect/certs
+      client:
+        provider:
+          oidc:
+            issuer-uri: http://keycloak:9080/realms/jhipster
+        registration:
+          oidc:
+            client-id: recharge-service
+            client-secret: 43r8dgUiVpTq2OZl4be8sMqiOqizzIAf
+            scope: openid, profile, email, offline_access
   # Replace by 'prod, faker' to add the faker context and have sample data loaded in production
   liquibase:
     contexts: prod
   thymeleaf:
     cache: true
+
 
 # ===================================================================
 # To enable TLS in production, generate a certificate using:

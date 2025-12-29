@@ -1,8 +1,10 @@
 package com.onemoney.recgardecardservice.service.impl;
 
+import com.onemoney.recgardecardservice.client.AccountClient;
 import com.onemoney.recgardecardservice.domain.Card;
 import com.onemoney.recgardecardservice.repository.CardRepository;
 import com.onemoney.recgardecardservice.service.CardService;
+import com.onemoney.recgardecardservice.service.dto.AccountDTO;
 import com.onemoney.recgardecardservice.service.dto.CardDTO;
 import com.onemoney.recgardecardservice.service.mapper.CardMapper;
 import java.util.LinkedList;
@@ -11,6 +13,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +30,9 @@ public class CardServiceImpl implements CardService {
 
     private final CardMapper cardMapper;
 
+    @Autowired
+    private AccountClient accountClient;
+
     public CardServiceImpl(CardRepository cardRepository, CardMapper cardMapper) {
         this.cardRepository = cardRepository;
         this.cardMapper = cardMapper;
@@ -35,6 +41,7 @@ public class CardServiceImpl implements CardService {
     @Override
     public CardDTO save(CardDTO cardDTO) {
         LOG.debug("Request to save Card : {}", cardDTO);
+//        AccountDTO account = accountClient.getAccountByUserId()
         Card card = cardMapper.toEntity(cardDTO);
         card = cardRepository.save(card);
         return cardMapper.toDto(card);

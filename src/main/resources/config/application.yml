@@ -26,28 +26,15 @@ springdoc:
 ---
 eureka:
   client:
-    enabled: true
-    healthcheck:
-      enabled: true
-    fetch-registry: true
+    service-url:
+      defaultZone: http://admin:admin@localhost:8761/eureka/
+    registry-fetch-interval-seconds: 5
     register-with-eureka: true
-    instance-info-replication-interval-seconds: 10
-    registry-fetch-interval-seconds: 10
+    fetch-registry: true
   instance:
-    appname: onemoneyrechargecardservice
-    instanceId: onemoneyrechargecardservice:${spring.application.instance-id:${random.value}}
-    lease-renewal-interval-in-seconds: 5
-    lease-expiration-duration-in-seconds: 10
-    status-page-url-path: ${management.endpoints.web.base-path}/info
-    health-check-url-path: ${management.endpoints.web.base-path}/health
-    8metadata-map:
-      zone: primary # This is needed for the load balancer
-      profile: ${spring.profiles.active}
-      version: '@project.version@'
-      git-version: ${git.commit.id.describe:}
-      git-commit: ${git.commit.id.abbrev:}
-      git-branch: ${git.branch:}
-      context-path: ${server.servlet.context-path:}
+    prefer-ip-address: false
+    hostname: recharge-service
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 feign:
   circuitbreaker:
     enabled: true
@@ -136,7 +123,7 @@ spring:
   autoconfigure:
     exclude: org.springframework.boot.actuate.autoconfigure.metrics.jdbc.DataSourcePoolMetricsAutoConfiguration
   application:
-    name: oneMoneyRechargeCardService
+    name: recharge-service
   cloud:
     function:
 #      definition: kafkaConsumer;kafkaProducer
@@ -223,7 +210,7 @@ spring:
           oidc:
             client-id: recharge-service
             client-secret: 43r8dgUiVpTq2OZl4be8sMqiOqizzIAf
-            scope: openid, profile, email, offline_access # last one for refresh tokens
+            scope: openid, profile, email, offline_access
   task:
     execution:
       thread-name-prefix: one-money-recharge-card-service-task-

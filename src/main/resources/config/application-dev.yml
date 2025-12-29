@@ -10,13 +10,17 @@ logging:
     com.onemoney.recgardecardservice: DEBUG
 
 eureka:
-  instance:
-    prefer-ip-address: true
   client:
-    enabled: false # Désactive la recherche du serveur Eureka
-    register-with-eureka: false
-#    service-url:
-#      defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
+    service-url:
+      defaultZone: http://admin:admin@localhost:8761/eureka/
+    registry-fetch-interval-seconds: 5
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: false
+    hostname: recharge-service
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
 
 management:
   zipkin:

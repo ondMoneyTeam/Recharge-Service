@@ -91,6 +91,17 @@
     <dependencies>
 
       <dependency>
+        <groupId>jakarta.xml.bind</groupId>
+        <artifactId>jakarta.xml.bind-api</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-runtime</artifactId>
+        <version>4.0.2</version>
+      </dependency>
+
+      <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-web-services</artifactId>
       </dependency>
@@ -238,11 +249,7 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <scope>provided</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
@@ -370,20 +377,19 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>jaxb2-maven-plugin</artifactId>
-            <version>3.3.0</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>xjc</goal>
-                </goals>
-              </execution>
-            </executions>
-
+            <version>3.3.0</version> <executions>
+            <execution>
+              <id>xjc</id>
+              <goals>
+                <goal>xjc</goal>
+              </goals>
+            </execution>
+          </executions>
             <configuration>
               <sources>
-                <schemaDirectory>${basedir}/src/main/resources/wsdl/</schemaDirectory>
+                <source>${basedir}/src/main/resources/wsdl/</source>
               </sources>
-
+              <outputDirectory>${project.build.directory}/generated-sources/jaxb</outputDirectory>
               <clearOutputDir>false</clearOutputDir>
               <packageName>com.onemoney.rechargeservice.entity</packageName>
             </configuration>
@@ -509,10 +515,7 @@
                                 <groupId>org.hibernate.orm</groupId>
                                 <artifactId>hibernate-jpamodelgen</artifactId>
                             </path>
-                            <path>
-                                <groupId>org.glassfish.jaxb</groupId>
-                                <artifactId>jaxb-runtime</artifactId>
-                            </path>
+
                         </annotationProcessorPaths>
                     </configuration>
                 </plugin>
