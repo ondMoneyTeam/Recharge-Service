@@ -4,7 +4,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.oauth2.core.oidc.StandardClaimNames.PREFERRED_USERNAME;
 
 import com.onemoney.recgardecardservice.security.*;
-import com.onemoney.recgardecardservice.security.SecurityUtils;
 import com.onemoney.recgardecardservice.security.oauth2.AudienceValidator;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,6 +41,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
         http
+            .cors(withDefaults()) 
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz ->
                 authz

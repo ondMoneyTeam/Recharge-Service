@@ -27,6 +27,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
   instance:
+    appname: recharge-service
     prefer-ip-address: false
     hostname: recharge-service
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
@@ -57,7 +58,7 @@ spring:
         max-attempts: 100
       uri: http://admin:${jhipster.registry.password}@jhipster-registry:8761/config
       # name of the config server's property source (file.yml) that we want to use
-      name: oneMoneyRechargeCardService
+      name: recharge-service
       profile: prod
       label: main # toggle to switch to a different version of the configuration as stored in git
       # it can be set to any label, branch or commit of the configuration source Git repository
